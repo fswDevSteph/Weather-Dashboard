@@ -1,3 +1,14 @@
-h1 {
-    color: red;
-}
+ :root {
+     --nightScreen: radial-gradient(circle at 85.4% 50.8%, rgb(14, 72, 222) 0%, rgb(3, 22, 65) 74.2%);
+     --sunnyScreen: radial-gradient(circle at 85.4% 50.8%, rgb(255, 255, 0) 0%, rgb(255, 255, 0) 74.2%);
+     --dayScreen: linear-gradient(109.6deg, rgb(252, 255, 26) 34.9%, rgb(66, 240, 233) 82.5%);
+ }
+
+ header {
+     background: white;
+     color: black;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+
+ }
