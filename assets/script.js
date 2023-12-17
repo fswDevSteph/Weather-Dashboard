@@ -13,3 +13,5 @@ var formatDate = today.format('MMMM D, YYYY'); //Creates a variable"formatDate" 
 
 // 3.
 document.getElementById('currentDay').textContent = formatDate; // Grabs the HTML element with the id 'currentDay' and updates its text content with the formatted date stored in the variable "formatDate".
+
+document.getElementById('searchBtn').addEventListener('click', function () {}); // Grabs the HTML element with the id 'searchBtn' and adds an event listener to it that listens for a click and then calls the function()
