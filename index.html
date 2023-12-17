@@ -10,15 +10,47 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Lato&family=Poppins:wght@100;200;300;500&family=Raleway:wght@100&display=swap"
         rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/styles.css">
 </head>
 
 <body>
-    <header>
+    <header class="container">
         <h1>Weather Dashboard</h1>
     </header>
+    <div class="container">
+
+        <div class="row">
+            <!--Search for city column-->
+            <div class="col-3">
+                <h2>Search for a city</h2>
+                <!--Search input-->
+                <div class="container citySearch paddingBottom">
+                    <input type="text" placeholder="Type a city here" id="citySearch" class="marginBottom">
+                    <!--Seach button-->
+                    <button id="searchBtn">Search</button>
+                    <p>Edmonston</p>
+                    <p>Edmonston</p>
+                    <p>Edmonston</p>
+                    <p>Edmonston</p>
+                    <p>Edmonston</p>
+                </div>
+
+            </div>
+
+            <div class="col-9 currentWeatherDate">
+                <!--User Search location / Current Date-->
+                <h2>Current Weather for: </h2>
+                <p id="currentDay"></p>
+            </div>
+        </div>
+    </div>
+    </div>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script>dayjs().format()</script>
     <script src="./assets/script.js"></script>
 </body>
 

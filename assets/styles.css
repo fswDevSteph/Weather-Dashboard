@@ -4,11 +4,52 @@
      --dayScreen: linear-gradient(109.6deg, rgb(252, 255, 26) 34.9%, rgb(66, 240, 233) 82.5%);
  }
 
+ body {
+     font-family: poppins;
+     background: violet;
+     color: white;
+ }
+
  header {
-     background: white;
-     color: black;
+     background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+     color: white;
      display: flex;
      align-items: center;
      justify-content: center;
+ }
 
+ h2 {
+     color: black;
+ }
+
+ p {
+     color: black;
+ }
+
+ #citySearch {
+     background-color: white;
+     color: gray;
+
+ }
+
+ #searchBtn {
+     background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+     color: white;
+ }
+
+ .currentWeatherDate {
+     border-left: 1px solid black;
+     border-top: none;
+     background-color: white;
+     padding-top: none;
+ }
+
+ /* Padding classes */
+ .paddingBottom {
+     padding-bottom: 2rem;
+ }
+
+ /* Margin classes */
+ .marginBottom {
+     margin-bottom: 2rem;
  }
