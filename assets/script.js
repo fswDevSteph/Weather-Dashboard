@@ -18,7 +18,6 @@ document.getElementById('currentDay').textContent = formatDate; // Grabs the HTM
 
 // document.getElementById('searchBtn').addEventListener('click', function () {fetch(api.openweathermap.org/data/2.5/weather?q={userInputCity}&appid={weatherApikey})});
 document.getElementById('searchBtn').addEventListener('click', latlongSearch);
-
 async function latlongSearch() {
   userInputCity = document.getElementById('citySearch').value;
   console.log(userInputCity);
@@ -29,10 +28,43 @@ async function latlongSearch() {
   console.log(data);
   var lat = data[0].lat;
   var lon = data[0].lon;
-  api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={weatherApiKey};
+  let forecastUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
+  const forecastResponse = await fetch(forecastUrl);
+  const forecastData = await forecastResponse.json();
+  console.log(forecastData);
+
+  const forecastDiv = document.getElementById('forecast');
+
+  // OpenWeatherMap provides weather data for every 3 hours, so we take one reading per day
+  forecastData.list.forEach((forecast, index) => {
+    // OpenWeatherMap provides weather data for every 3 hours, so we take one reading per day
+    if (index % 8 === 0) {
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'day';
+
+      const dateElement = document.createElement('p');
+      const tempElement = document.createElement('p');
+      const windElement = document.createElement('p');
+      const humidityElement = document.createElement('p');
+
+      const date = new Date(forecast.dt * 1000).toLocaleDateString(); // Convert unix timestamp to date
+      const tempCelsius = forecast.main.temp - 273.15; // Convert Kelvin to Celsius
+
+      dateElement.textContent = `Date: ${date}`;
+      dayDiv.appendChild(dateElement);
+
+      tempElement.textContent = `Temperature: ${tempCelsius.toFixed(2)}°C`;
+      dayDiv.appendChild(tempElement);
+      windElement.textContent = `Wind Speed: ${forecast.wind.speed}m/s`;
+      dayDiv.appendChild(windElement);
+      humidityElement.textContent = `Humidity: ${forecast.main.humidity}%`;
+      dayDiv.appendChild(humidityElement);
+      forecastDiv.appendChild(dayDiv);
+
+      forecastDiv.appendChild(dateElement);
+      forecastDiv.appendChild(tempElement);
+      forecastDiv.appendChild(windElement);
+      forecastDiv.appendChild(humidityElement);
+    }
+  });
 }
-
-
-//api.openweathermap.org/data/2.5/weather?q={cityName}&appid={weatherApiKey};
-// Grabs the HTML element with the id 'searchBtn' and adds an event listener to it that listens for a click and then calls the function()
-//  sample api call? api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
