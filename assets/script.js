@@ -24,18 +24,39 @@ async function latlongSearch() {
   const response = await fetch(
     `http://api.openweathermap.org/geo/1.0/direct?q=${userInputCity}&appid=${weatherApiKey}`
   );
-  const data = await response.json(); //extract JSON from the http response
+  const data = await response.json(); //variable where data is stored
   console.log(data);
   var lat = data[0].lat; //extract latitude from data
   var lon = data[0].lon; //extract longitude from data
   let forecastUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`; //create url for forecast
   const forecastResponse = await fetch(forecastUrl); //fetch forecast data
   const forecastData = await forecastResponse.json(); //extract JSON from the http response
-  console.log(forecastData);
-
-  /*currentWeatherDiv area */
+  console.log(forecastData.list[0].main.temp); //print temperature
+  console.log('string', forecastData.list);
+  /*currentWeatherDiv area starts here*/
   const currentWeatherDiv = document.getElementById('currentWeather'); //creates a variable named currentWeatherDiv and sets it to the value of the element with the id of currentWeather
 
+  //grabbing specific .dt_txt forecast data at index 0
+  console.log(forecastData.list[0].dt_txt);
+  console.log(forecastData.list[0].main.temp);
+  console.log(forecastData.list[0].main.humidity);
+
+  /*const currentWeather = document.createElement('div'); //creates a p element and stores it in the currentWeather variable
+
+  const currentDate = createElement('p');
+  currentDate.textContent = `Date: ${forecastData.list[0].main.dt_txt}`;
+  currentWeather.appendChild(currentDate);
+
+  const currentTemp = createElement('p');
+  currentTemp.textContent = `Temperature: ${forecastData.list[0].main.temp}°C`;
+  currentWeather.appendChild(currentTemp);
+
+  const currentWeatherCity = createElement('p');
+
+  const currentWind = createElement('p');
+
+   currentWeatherDiv.appendChild(currentWeather); //appends currentWeather p to the currentWeatherDiv div
+*/
   const forecastDiv = document.getElementById('forecast'); //creates a variable named forecastDiv and sets it to the value of the element with the id of forecast
 
   forecastData.list.forEach((forecast, index) => {
