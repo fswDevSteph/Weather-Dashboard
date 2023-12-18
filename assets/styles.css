@@ -74,12 +74,16 @@
      flex-wrap: wrap;
      flex-direction: row;
      justify-content: space-between;
-
+     overflow: hidden;
+     border-left: 1px solid rgb(243, 20, 205);
+     margin-bottom: 10px;
  }
 
  .day {
      border-left: 1px solid rgb(243, 20, 205);
      margin-bottom: 10px;
+     display: flex;
+     flex-wrap: wrap;
  }
 
  .day,

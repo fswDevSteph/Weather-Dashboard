@@ -32,12 +32,12 @@ async function latlongSearch() {
   const forecastResponse = await fetch(forecastUrl);
   const forecastData = await forecastResponse.json();
   console.log(forecastData);
+  /*currentWeatherDiv area */
+  const currentWeatherDiv = document.getElementById('currentWeather');
 
   const forecastDiv = document.getElementById('forecast');
 
-  // OpenWeatherMap provides weather data for every 3 hours, so we take one reading per day
   forecastData.list.forEach((forecast, index) => {
-    // OpenWeatherMap provides weather data for every 3 hours, so we take one reading per day
     if (index % 8 === 0) {
       const dayDiv = document.createElement('div');
       dayDiv.className = 'day';
@@ -54,7 +54,7 @@ async function latlongSearch() {
       dayDiv.appendChild(dateElement);
 
       tempElement.textContent = `Temperature: ${tempCelsius.toFixed(2)}°C`; //sets text content of tempElement p to the value of temperature in celsius
-      dayDiv.appendChild(tempElement); //appends tempElement p to the dayDiv div
+      dayDiv.appendChild(tempElement); //
       windElement.textContent = `Wind Speed: ${forecast.wind.speed}m/s`;
       dayDiv.appendChild(windElement);
       humidityElement.textContent = `Humidity: ${forecast.main.humidity}%`;
