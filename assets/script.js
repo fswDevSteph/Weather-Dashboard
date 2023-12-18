@@ -53,18 +53,14 @@ async function latlongSearch() {
       dateElement.textContent = `Date: ${date}`;
       dayDiv.appendChild(dateElement);
 
-      tempElement.textContent = `Temperature: ${tempCelsius.toFixed(2)}°C`;
-      dayDiv.appendChild(tempElement);
+      tempElement.textContent = `Temperature: ${tempCelsius.toFixed(2)}°C`; //sets text content of tempElement p to the value of temperature in celsius
+      dayDiv.appendChild(tempElement); //appends tempElement p to the dayDiv div
       windElement.textContent = `Wind Speed: ${forecast.wind.speed}m/s`;
       dayDiv.appendChild(windElement);
       humidityElement.textContent = `Humidity: ${forecast.main.humidity}%`;
       dayDiv.appendChild(humidityElement);
       forecastDiv.appendChild(dayDiv);
-
-      forecastDiv.appendChild(dateElement);
-      forecastDiv.appendChild(tempElement);
-      forecastDiv.appendChild(windElement);
-      forecastDiv.appendChild(humidityElement);
+      // Append the dayDiv to forecastDiv
     }
   });
 }
