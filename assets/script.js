@@ -1,6 +1,6 @@
-var weatherApiKey = '1e57f9cafb1f7d251058b6d4dccdc7c2';
-var city;
-var fiveDayWeatherApiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
+var weatherApiKey = '1e57f9cafb1f7d251058b6d4dccdc7c2'; //API key for openweathermap.org
+var fiveDayWeatherApiUrl = 'https://api.openweathermap.org/data/2.5/weather?q='; //API url for openweathermap.org
+var city; //variable for city name
 
 var userInputCity;
 //userInputCity variable is set to the value of the input element with the id of "cityInput"
@@ -24,42 +24,45 @@ async function latlongSearch() {
   const response = await fetch(
     `http://api.openweathermap.org/geo/1.0/direct?q=${userInputCity}&appid=${weatherApiKey}`
   );
-  const data = await response.json();
+  const data = await response.json(); //extract JSON from the http response
   console.log(data);
-  var lat = data[0].lat;
-  var lon = data[0].lon;
-  let forecastUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
-  const forecastResponse = await fetch(forecastUrl);
-  const forecastData = await forecastResponse.json();
+  var lat = data[0].lat; //extract latitude from data
+  var lon = data[0].lon; //extract longitude from data
+  let forecastUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`; //create url for forecast
+  const forecastResponse = await fetch(forecastUrl); //fetch forecast data
+  const forecastData = await forecastResponse.json(); //extract JSON from the http response
   console.log(forecastData);
-  /*currentWeatherDiv area */
-  const currentWeatherDiv = document.getElementById('currentWeather');
 
-  const forecastDiv = document.getElementById('forecast');
+  /*currentWeatherDiv area */
+  const currentWeatherDiv = document.getElementById('currentWeather'); //creates a variable named currentWeatherDiv and sets it to the value of the element with the id of currentWeather
+
+  const forecastDiv = document.getElementById('forecast'); //creates a variable named forecastDiv and sets it to the value of the element with the id of forecast
 
   forecastData.list.forEach((forecast, index) => {
+    // goes through each forecast entry in the list array with an arrow function that takes the returned forecast
     if (index % 8 === 0) {
-      const dayDiv = document.createElement('div');
-      dayDiv.className = 'day';
+      //this condition is true for every 8th entry in the list array
+      const dayDiv = document.createElement('div'); //creates a div element and stores it in the dayDiv variable
+      dayDiv.className = 'day'; // gives the dayDiv element a class of day
 
-      const dateElement = document.createElement('p');
-      const tempElement = document.createElement('p');
-      const windElement = document.createElement('p');
-      const humidityElement = document.createElement('p');
+      const dateElement = document.createElement('p'); //creates a p element and stores it in the dateElement variable
+      const tempElement = document.createElement('p'); // creates a p element and stores it in the tempElement variable
+      const windElement = document.createElement('p'); // creates a p element and stores it in the windElement variable
+      const humidityElement = document.createElement('p'); // creates a p element and stores it in the humidityElement variable
 
       const date = new Date(forecast.dt * 1000).toLocaleDateString(); // Convert unix timestamp to date
       const tempCelsius = forecast.main.temp - 273.15; // Convert Kelvin to Celsius
 
-      dateElement.textContent = `Date: ${date}`;
-      dayDiv.appendChild(dateElement);
+      dateElement.textContent = `Date: ${date}`; //sets text content of dateElement p to the value of date
+      dayDiv.appendChild(dateElement); //appends dateElement p to the dayDiv div
 
       tempElement.textContent = `Temperature: ${tempCelsius.toFixed(2)}°C`; //sets text content of tempElement p to the value of temperature in celsius
       dayDiv.appendChild(tempElement); //
-      windElement.textContent = `Wind Speed: ${forecast.wind.speed}m/s`;
-      dayDiv.appendChild(windElement);
-      humidityElement.textContent = `Humidity: ${forecast.main.humidity}%`;
-      dayDiv.appendChild(humidityElement);
-      forecastDiv.appendChild(dayDiv);
+      windElement.textContent = `Wind Speed: ${forecast.wind.speed}m/s`; //sets text content of windElement p to the value of wind speed
+      dayDiv.appendChild(windElement); //appends windElement p to the dayDiv div
+      humidityElement.textContent = `Humidity: ${forecast.main.humidity}%`; //sets text content of humidityElement p to the value of humidity
+      dayDiv.appendChild(humidityElement); //appends humidityElement p to the dayDiv div
+      forecastDiv.appendChild(dayDiv); //appends dayDiv div to the forecastDiv div
       // Append the dayDiv to forecastDiv
     }
   });
