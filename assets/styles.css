@@ -23,9 +23,7 @@
      color: black;
  }
 
- p {
-     color: black;
- }
+
 
 
 
@@ -93,11 +91,7 @@
 
 
 
- .day,
- p {
-     color: white;
-     border-bottom: 1px solid rgb(243, 20, 205);
- }
+
 
  .currentDate {
      color: black;

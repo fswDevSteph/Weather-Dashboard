@@ -42,6 +42,7 @@ async function latlongSearch() {
   console.log(forecastData.list[0].dt_txt);
   console.log(forecastData.list[0].main.temp);
   console.log(forecastData.list[0].main.humidity);
+  console.log(forecastData.list[0].wind);
   //I think current weather starts here now... who knows
   const currentdateP = document.createElement('p'); //creates a p element and stores it in the dateElement variable
   const currentTempP = document.createElement('p'); // creates a p element and stores it in the tempElement variable
@@ -83,7 +84,7 @@ async function latlongSearch() {
    currentWeatherDiv.appendChild(currentWeather); //appends currentWeather p to the currentWeatherDiv div
 */
   const forecastDiv = document.getElementById('forecast'); //creates a variable named forecastDiv and sets it to the value of the element with the id of forecast
-
+  forecastDiv.innerHTML = '';
   forecastData.list.forEach((forecast, index) => {
     // goes through each forecast entry in the list array with an arrow function that takes the returned forecast
     if (index % 8 === 0) {
