@@ -54,11 +54,11 @@ async function latlongSearch() {
   currentdateP.textContent = `Date: ${date}`; //sets text content of dateElement p to the value of date
   currentDay.appendChild(currentTempP); //appends dateElement p to the dayDiv div
   currentWeatherDiv.innerHTML = `
-  <p>CITY: ${userInputCity}</p>
-  <p>TIME: ${forecastData.list[0].dt_txt}</p>
-  <p>TEMP: ${forecastData.list[0].main.temp}</p>
-  <p>HUMIDITY: ${forecastData.list[0].main.humidity}%</p>
-  <p>WIND: ${forecastData.list[0].wind.speed}</p>
+  <p>City: ${userInputCity}</p>
+  <p>Date: ${forecastData.list[0].dt_txt}</p>
+  <p>Temperature: ${forecastData.list[0].main.temp}</p>
+  <p>Humidity: ${forecastData.list[0].main.humidity}%</p>
+  <p>Wind: ${forecastData.list[0].wind.speed}</p>
 `;
   //current weather / date js
   /*const currentDate = document.createElement('p');
