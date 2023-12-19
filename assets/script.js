@@ -48,10 +48,10 @@ async function latlongSearch() {
   const currentWindP = document.createElement('p'); // creates a p element and stores it in the windElement variable
   const currentHumidityP = document.createElement('p'); // creates a p element and stores it in the humidityElement variable
   const date = new Date(forecast.dt * 1000).toLocaleDateString(); // Convert unix timestamp to date
-  const tempCelsius = forecast.main.temp - 273.15; // Convert Kelvin to Celsius
-
+  //const tempCelsius = forecast.main.temp - 273.15; // Convert Kelvin to Celsius
+  const currentDay = document.getElementById('currentDay');
   currentdateP.textContent = `Date: ${date}`; //sets text content of dateElement p to the value of date
-  currentDateDiv.appendChild(dateElement); //appends dateElement p to the dayDiv div
+  currentDay.appendChild(currentTempP); //appends dateElement p to the dayDiv div
 
   //current weather / date js
   /*const currentDate = document.createElement('p');
