@@ -8,13 +8,13 @@ var userInputCity;
 // api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
 // 1. Dayjs
-var today = dayjs(); //Creates a variable"var" named"today" & sets"=" it to the result of calling"()" the dayjs method"function" provided by using the dayjs library.
+//var today = dayjs(); //Creates a variable"var" named"today" & sets"=" it to the result of calling"()" the dayjs method"function" provided by using the dayjs library.
 
 // 2. Dayjs formatting
-var formatDate = today.format('MMMM D, YYYY'); //Creates a variable"formatDate" & sets"=" it to calling() the format method"function" on the today variable and passes it the formatting style argument"('MMMM D, YYYY')
+//var formatDate = today.format('MMMM D, YYYY'); //Creates a variable"formatDate" & sets"=" it to calling() the format method"function" on the today variable and passes it the formatting style argument"('MMMM D, YYYY')
 
 // 3.
-document.getElementById('currentDay').textContent = formatDate; // Grabs the HTML element with the id 'currentDay' and updates its text content with the formatted date stored in the variable "formatDate".
+//document.getElementById('currentDay').textContent = formatDate; // Grabs the HTML element with the id 'currentDay' and updates its text content with the formatted date stored in the variable "formatDate".
 
 // document.getElementById('searchBtn').addEventListener('click', function () {fetch(api.openweathermap.org/data/2.5/weather?q={userInputCity}&appid={weatherApikey})});
 document.getElementById('searchBtn').addEventListener('click', latlongSearch);
@@ -31,8 +31,10 @@ async function latlongSearch() {
   let forecastUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`; //create url for forecast
   const forecastResponse = await fetch(forecastUrl); //fetch forecast data
   const forecastData = await forecastResponse.json(); //extract JSON from the http response
-  console.log(forecastData.list[0].main.temp); //print temperature
+  console.log(forecastData.list[0].main.temp);
   console.log('string', forecastData.list);
+  console.log(forecastData.list[0]);
+
   /*currentWeatherDiv area starts here*/
   const currentWeatherDiv = document.getElementById('currentWeather'); //creates a variable named currentWeatherDiv and sets it to the value of the element with the id of currentWeather
 
@@ -40,6 +42,29 @@ async function latlongSearch() {
   console.log(forecastData.list[0].dt_txt);
   console.log(forecastData.list[0].main.temp);
   console.log(forecastData.list[0].main.humidity);
+  //I think current weather starts here now... who knows
+  const currentdateP = document.createElement('p'); //creates a p element and stores it in the dateElement variable
+  const currentTempP = document.createElement('p'); // creates a p element and stores it in the tempElement variable
+  const currentWindP = document.createElement('p'); // creates a p element and stores it in the windElement variable
+  const currentHumidityP = document.createElement('p'); // creates a p element and stores it in the humidityElement variable
+  const date = new Date(forecast.dt * 1000).toLocaleDateString(); // Convert unix timestamp to date
+  const tempCelsius = forecast.main.temp - 273.15; // Convert Kelvin to Celsius
+
+  currentdateP.textContent = `Date: ${date}`; //sets text content of dateElement p to the value of date
+  currentDateDiv.appendChild(dateElement); //appends dateElement p to the dayDiv div
+
+  //current weather / date js
+  /*const currentDate = document.createElement('p');
+  currentDate.textContent = forecastData.list[0].main.dt_txt;
+  currentWeatherDiv.appendChild(currentDate);
+  currentDate.className = 'currentDate';
+
+  //current weather / temp js
+  const currentTemp = document.createElement('p');
+  currentTemp.textContent = forecastData.list[0].main.temp;
+  currentWeatherDiv.appendChild(currentTemp);
+  currentTemp.textContent = `Temperature: ${tempCelsius.toFixed(2)}°C`; //sets text content of tempElement p to the value of temperature in celsius
+  currentTemp.className = 'currentTemp'; */
 
   /*const currentWeather = document.createElement('div'); //creates a p element and stores it in the currentWeather variable
 

@@ -27,6 +27,8 @@
      color: black;
  }
 
+
+
  #citySearch {
      background-color: white;
      color: gray;
@@ -38,10 +40,16 @@
      color: white;
  }
 
+ #currentDay {
+     color: black;
+ }
+
+
  .currentWeatherDate {
      border-left: 1px solid black;
      border-top: none;
      background-color: white;
+     color: black;
      padding-top: none;
  }
 
@@ -77,17 +85,20 @@
      overflow: hidden;
      border-left: 1px solid rgb(243, 20, 205);
      margin-bottom: 10px;
- }
-
- .day {
      border-left: 1px solid rgb(243, 20, 205);
      margin-bottom: 10px;
      display: flex;
      flex-wrap: wrap;
  }
 
+
+
  .day,
  p {
      color: white;
      border-bottom: 1px solid rgb(243, 20, 205);
+ }
+
+ .currentDate {
+     color: black;
  }
