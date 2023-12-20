@@ -57,13 +57,11 @@ async function latlongSearch() {
   currentWeatherDiv.innerHTML = `
   <p>City: ${userInputCity}</p>
   <p>Date: ${forecastData.list[0].dt_txt}</p>
- <p>Temperature: ${(forecastData.list[0].main.temp - 273.15).toFixed(
-   2
- )}°C </p> //<p>Temperature: ${forecastData.list[0].main.temp} </p>
+ <p>Temperature: ${(forecastData.list[0].main.temp - 273.15).toFixed(2)}°C </p> 
   <p>Humidity: ${forecastData.list[0].main.humidity}%</p>
   <p>Wind: ${forecastData.list[0].wind.speed}</p>
 `;
-  // <p>Temperature: ${forecastData.list[0].main.temp} </p>
+
   //current weather / date js
   /*const currentDate = document.createElement('p');
   currentDate.textContent = forecastData.list[0].main.dt_txt;
