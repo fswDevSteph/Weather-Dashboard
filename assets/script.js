@@ -87,8 +87,19 @@ function saveToLocalStorage(userInput) {
 }
 
 // function to display all saved inputs
+// function to display all saved inputs
 function displaySavedInputs() {
   const savedInputDiv = document.getElementById('savedInput');
   let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
-  savedInputDiv.innerHTML = ` ${savedInputs.join(', ')}`;
+
+  if (savedInputs.length === 0) {
+    savedInputDiv.innerHTML += ' No saved inputs.';
+  } else {
+    savedInputs.forEach((input, index) => {
+      if (index > 0) {
+        savedInputDiv.innerHTML += '<br>'; // Add line break except for the first item
+      }
+      savedInputDiv.innerHTML += `<p>${input}</p>`;
+    });
+  }
 }
