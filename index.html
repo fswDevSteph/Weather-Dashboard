@@ -23,20 +23,30 @@
 
         <div class="row">
             <!--Search for city column-->
+
             <div class="col-3">
-                <h2>Search for a city</h2>
+
+
                 <!--Search input-->
                 <div class="container citySearch paddingBottom">
-                    <input type="text" placeholder="Type a city here" id="citySearch" class="marginBottom">
+                    <label for="citySearch">Search for a City:</label>
+                    <input type="text" placeholder="Type a city here" id="citySearchInput" class="marginBottom">
                     <!--Seach button-->
-                    <button id="searchBtn">Search</button>
-                    <p class="history"></p>
-                    <p class="history"></p>
-                    <p class="history"></p>
+                    <button onclick="saveToLocalStorage()" id="searchBtn" class="citySearch">Search</button>
+
+                    <!--<button onclick="saveToLocalStorage()" id="searchBtn" class="citySearch">Search</button>-->
+                    <h3>
+                    </h3>
+                    <h3></h3>
+                    <h3></h3>
+                    <h3></h3>
+
+
 
                 </div>
 
             </div>
+
 
             <div class="col-9 currentWeatherDate">
                 <!--User Search location / Current Date-->
@@ -61,8 +71,10 @@
 
                 </div>
             </div>
+
         </div>
     </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
