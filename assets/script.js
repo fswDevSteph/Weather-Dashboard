@@ -3,6 +3,11 @@ var fiveDayWeatherApiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
 var city;
 var userInputCity;
 
+// Load saved inputs from local storage when the page loads
+window.onload = function () {
+  displaySavedInputs();
+};
+
 document.getElementById('searchBtn').addEventListener('click', latlongSearch);
 
 async function latlongSearch() {
@@ -68,12 +73,22 @@ async function latlongSearch() {
       forecastDiv.appendChild(dayDiv);
     }
   });
+
+  // Save the input to local storage
+  saveToLocalStorage(userInputCity);
 }
 
 // user input storage
-function saveToLocalStorage() {
-  const userInput = document.getElementById('citySearchInput').value;
-  if (userInput.trim() !== '') {
-    localStorage.setItem('citySearchInput', userInput);
-  }
+function saveToLocalStorage(userInput) {
+  let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
+  savedInputs.push(userInput);
+  localStorage.setItem('savedInputs', JSON.stringify(savedInputs));
+  displaySavedInputs();
+}
+
+// function to display all saved inputs
+function displaySavedInputs() {
+  const savedInputDiv = document.getElementById('savedInput');
+  let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
+  savedInputDiv.innerHTML = ` ${savedInputs.join(', ')}`;
 }
