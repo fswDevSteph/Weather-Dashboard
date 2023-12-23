@@ -59,7 +59,7 @@ async function latlongSearch() {
   <p>Date: ${forecastData.list[0].dt_txt}</p>
  <p>Temperature: ${(forecastData.list[0].main.temp - 273.15).toFixed(2)}°C </p> 
   <p>Humidity: ${forecastData.list[0].main.humidity}%</p>
-  <p>Wind: ${forecastData.list[0].wind.speed}</p>
+  <p>Wind: ${forecastData.list[0].wind.speed} m/s</p>
 `;
 
   //current weather / date js
@@ -122,3 +122,6 @@ async function latlongSearch() {
     }
   });
 }
+
+// user input storage
+var citySearchInput;
