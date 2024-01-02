@@ -8,14 +8,23 @@ window.onload = function () {
   displaySavedInputs();
 };
 
-document.getElementById('searchBtn').addEventListener('click', latlongSearch);
+// Add an event listener to the form for submitting
+document
+  .getElementById('citySearchForm')
+  .addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent default form submission behavior
+    latlongSearch(); // Call your function to handle the search
+  });
 
+// Define the latlongSearch function as asynchronous
 async function latlongSearch() {
   userInputCity = document.getElementById('citySearchInput').value;
   console.log(userInputCity);
+
   const response = await fetch(
     `http://api.openweathermap.org/geo/1.0/direct?q=${userInputCity}&appid=${weatherApiKey}`
   );
+
   const data = await response.json();
   console.log(data);
 
@@ -40,7 +49,7 @@ async function latlongSearch() {
     )}°C </p> 
     <p>Humidity: ${forecastData.list[0].main.humidity}%</p>
     <p>Wind: ${forecastData.list[0].wind.speed} m/s</p>
-    `;
+  `;
 
   const forecastDiv = document.getElementById('forecast');
   forecastDiv.innerHTML = '';
@@ -87,17 +96,22 @@ function saveToLocalStorage(userInput) {
 }
 
 // function to display all saved inputs
-// function to display all saved inputs
 function displaySavedInputs() {
   const savedInputDiv = document.getElementById('savedInput');
   let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
 
+  savedInputDiv.innerHTML = ''; // Clear existing content
+
   if (savedInputs.length === 0) {
-    savedInputDiv.innerHTML += ' No saved inputs.';
+    savedInputDiv.innerHTML = ' No saved inputs.';
   } else {
+    savedInputs = savedInputs.filter(
+      (input) => input !== null && input !== undefined
+    );
+
     savedInputs.forEach((input, index) => {
       if (index > 0) {
-        savedInputDiv.innerHTML += '<br>'; // Add line break except for the first item
+        savedInputDiv.innerHTML += '<br>'; // Spaces out the displayed search history for a better user experience
       }
       savedInputDiv.innerHTML += `<p>${input}</p>`;
     });
