@@ -88,7 +88,7 @@ function saveToLocalStorage(userInput) {
   localStorage.setItem('savedInputs', JSON.stringify(savedInputs));
   displaySavedInputs();
 }
-
+//function to display city searches history
 function displaySavedInputs() {
   const savedInputDiv = document.getElementById('savedInput');
   let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
@@ -110,3 +110,28 @@ function displaySavedInputs() {
     });
   }
 }
+/*
+function seachFormSubmit(e) {
+  if (!citySearchInput.value) {
+    return;
+  }
+  e.preventDefault();
+  const search = citySearchInput.value.trim();
+  fetchCoords(search);
+  citySearchInput.value = '';
+}
+
+function cityHistoryClickable(e) {
+  //the e just represents an event
+  if (!e.target.matches(savedInput)) {
+    return;
+  }
+  const button = e.target;
+  const search = button.getAttribute(savedInput);
+  fetchCoords(search);
+}
+saveToLocalStorage();
+searchForm.addEventListener('submit', seachFormSubmit);
+searchHistoryContainer.addEventListener('click', cityHistoryClickable);
+const searchForm = document.querySelector('#citySearch');
+const citySearchInput = document.querySelector('#citySearchInput');
