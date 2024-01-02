@@ -29,14 +29,16 @@
 
                 <!--Search input-->
                 <div class="container citySearch paddingBottom">
-                    <label for="citySearch">Search for a City:</label>
-                    <input type="text" placeholder="Type a city here" id="citySearchInput" class="marginBottom">
-                    <!--Seach button-->
-                    <button onclick="saveToLocalStorage()" id="searchBtn" class="citySearch">Search</button>
+                    <form id="citySearchForm" class="container citySearch paddingBottom">
+                        <label for="citySearch">Search for a City:</label>
+                        <input type="text" placeholder="Type a city here" id="citySearchInput" class="marginBottom">
+                        <!--Seach button-->
+                        <button onclick="saveToLocalStorage()" id="searchBtn" class="citySearch">Search</button>
 
 
-                    <!--<button onclick="saveToLocalStorage()" id="searchBtn" class="citySearch">Search</button>-->
-                    <div id="savedInput" class="marginBottom"></div>
+                        <!--<button onclick="saveToLocalStorage()" id="searchBtn" class="citySearch">Search</button>-->
+                        <div id="savedInput" class="marginBottom"></div>
+                    </form>
 
 
 
