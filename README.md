@@ -1,4 +1,4 @@
-# Weather-dashboard
+# Weather-Dashboard
 
 A simple weather application that displays the current weather and 5 day forecast. This application also stores users prior searches.
 
