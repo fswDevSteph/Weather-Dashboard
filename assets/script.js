@@ -1,93 +1,87 @@
-var weatherApiKey = '1e57f9cafb1f7d251058b6d4dccdc7c2';
-var fiveDayWeatherApiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
-var city;
-var userInputCity;
-
-// Load saved inputs from local storage when the page loads
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', function () {
   displaySavedInputs();
-};
 
-// Add an event listener to the form for submitting
-document
-  .getElementById('citySearchForm')
-  .addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent default form submission behavior
-    latlongSearch(); // Call your function to handle the search
-  });
+  document
+    .getElementById('citySearchForm')
+    .addEventListener('submit', function (event) {
+      event.preventDefault();
+      latlongSearch();
+    });
+});
 
-// Define the latlongSearch function as asynchronous
 async function latlongSearch() {
+  const weatherApiKey = '1e57f9cafb1f7d251058b6d4dccdc7c2';
   userInputCity = document.getElementById('citySearchInput').value;
   console.log(userInputCity);
 
-  const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${userInputCity}&appid=${weatherApiKey}`
-  );
+  try {
+    const response = await fetch(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${userInputCity}&appid=${weatherApiKey}`
+    );
+    const data = await response.json();
+    console.log(data);
 
-  const data = await response.json();
-  console.log(data);
+    const lat = data[0].lat;
+    const lon = data[0].lon;
 
-  var lat = data[0].lat;
-  var lon = data[0].lon;
+    const forecastUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
+    const forecastResponse = await fetch(forecastUrl);
+    const forecastData = await forecastResponse.json();
+    console.log(forecastData.list[0].main.temp);
+    console.log('string', forecastData.list);
+    console.log(forecastData.list[0]);
 
-  let forecastUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
-  const forecastResponse = await fetch(forecastUrl);
-  const forecastData = await forecastResponse.json();
-  console.log(forecastData.list[0].main.temp);
-  console.log('string', forecastData.list);
-  console.log(forecastData.list[0]);
+    const currentWeatherDiv = document.getElementById('currentWeather');
+    const currentDay = document.getElementById('currentDay');
 
-  const currentWeatherDiv = document.getElementById('currentWeather');
-  const currentDay = document.getElementById('currentDay');
+    currentWeatherDiv.innerHTML = `
+      <p>City: ${userInputCity}</p>
+      <p>Date: ${forecastData.list[0].dt_txt}</p>
+      <p>Temperature: ${(forecastData.list[0].main.temp - 273.15).toFixed(
+        2
+      )}°C </p> 
+      <p>Humidity: ${forecastData.list[0].main.humidity}%</p>
+      <p>Wind: ${forecastData.list[0].wind.speed} m/s</p>
+    `;
 
-  currentWeatherDiv.innerHTML = `
-    <p>City: ${userInputCity}</p>
-    <p>Date: ${forecastData.list[0].dt_txt}</p>
-    <p>Temperature: ${(forecastData.list[0].main.temp - 273.15).toFixed(
-      2
-    )}°C </p> 
-    <p>Humidity: ${forecastData.list[0].main.humidity}%</p>
-    <p>Wind: ${forecastData.list[0].wind.speed} m/s</p>
-  `;
+    const forecastDiv = document.getElementById('forecast');
+    forecastDiv.innerHTML = '';
 
-  const forecastDiv = document.getElementById('forecast');
-  forecastDiv.innerHTML = '';
+    forecastData.list.forEach((forecast, index) => {
+      if (index % 8 === 0) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day';
 
-  forecastData.list.forEach((forecast, index) => {
-    if (index % 8 === 0) {
-      const dayDiv = document.createElement('div');
-      dayDiv.className = 'day';
+        const dateElement = document.createElement('p');
+        const tempElement = document.createElement('p');
+        const windElement = document.createElement('p');
+        const humidityElement = document.createElement('p');
 
-      const dateElement = document.createElement('p');
-      const tempElement = document.createElement('p');
-      const windElement = document.createElement('p');
-      const humidityElement = document.createElement('p');
+        const date = new Date(forecast.dt * 1000).toLocaleDateString();
+        const tempCelsius = forecast.main.temp - 273.15;
 
-      const date = new Date(forecast.dt * 1000).toLocaleDateString();
-      const tempCelsius = forecast.main.temp - 273.15;
+        dateElement.textContent = `Date: ${date}`;
+        dayDiv.appendChild(dateElement);
 
-      dateElement.textContent = `Date: ${date}`;
-      dayDiv.appendChild(dateElement);
+        tempElement.textContent = `Temperature: ${tempCelsius.toFixed(2)}°C`;
+        dayDiv.appendChild(tempElement);
 
-      tempElement.textContent = `Temperature: ${tempCelsius.toFixed(2)}°C`;
-      dayDiv.appendChild(tempElement);
+        windElement.textContent = `Wind Speed: ${forecast.wind.speed}m/s`;
+        dayDiv.appendChild(windElement);
 
-      windElement.textContent = `Wind Speed: ${forecast.wind.speed}m/s`;
-      dayDiv.appendChild(windElement);
+        humidityElement.textContent = `Humidity: ${forecast.main.humidity}%`;
+        dayDiv.appendChild(humidityElement);
 
-      humidityElement.textContent = `Humidity: ${forecast.main.humidity}%`;
-      dayDiv.appendChild(humidityElement);
+        forecastDiv.appendChild(dayDiv);
+      }
+    });
 
-      forecastDiv.appendChild(dayDiv);
-    }
-  });
-
-  // Save the input to local storage
-  saveToLocalStorage(userInputCity);
+    saveToLocalStorage(userInputCity);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 }
 
-// user input storage
 function saveToLocalStorage(userInput) {
   let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
   savedInputs.push(userInput);
@@ -95,12 +89,11 @@ function saveToLocalStorage(userInput) {
   displaySavedInputs();
 }
 
-// function to display all saved inputs
 function displaySavedInputs() {
   const savedInputDiv = document.getElementById('savedInput');
   let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
 
-  savedInputDiv.innerHTML = ''; // Clear existing content
+  savedInputDiv.innerHTML = '';
 
   if (savedInputs.length === 0) {
     savedInputDiv.innerHTML = ' No saved inputs.';
@@ -111,7 +104,7 @@ function displaySavedInputs() {
 
     savedInputs.forEach((input, index) => {
       if (index > 0) {
-        savedInputDiv.innerHTML += '<br>'; // Spaces out the displayed search history for a better user experience
+        savedInputDiv.innerHTML += '<br>';
       }
       savedInputDiv.innerHTML += `<p>${input}</p>`;
     });
