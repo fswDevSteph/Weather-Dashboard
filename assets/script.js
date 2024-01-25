@@ -53,6 +53,7 @@ async function latlongSearch() {
         dayDiv.className = 'day';
 
         const dateElement = document.createElement('p');
+
         const tempElement = document.createElement('p');
         const windElement = document.createElement('p');
         const humidityElement = document.createElement('p');
@@ -91,6 +92,7 @@ function saveToLocalStorage(userInput) {
 //function to display city searches history
 function displaySavedInputs() {
   const savedInputDiv = document.getElementById('savedInput');
+  //const createAttribute = `data-search=${input}`;
   let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
 
   savedInputDiv.innerHTML = '';
@@ -106,11 +108,12 @@ function displaySavedInputs() {
       if (index > 0) {
         savedInputDiv.innerHTML += '<br>';
       }
-      savedInputDiv.innerHTML += `<p>${input}</p>`;
+      //savedInputDiv.innerHTML += `<p>${input}</p>`;
+      savedInputDiv.innerHTML += `<button>${input}</button>`;
     });
   }
 }
-/*
+
 function seachFormSubmit(e) {
   if (!citySearchInput.value) {
     return;
@@ -128,10 +131,10 @@ function cityHistoryClickable(e) {
   }
   const button = e.target;
   const search = button.getAttribute(savedInput);
-  fetchCoords(search);
+  latlongSearch();
 }
 saveToLocalStorage();
 searchForm.addEventListener('submit', seachFormSubmit);
-searchHistoryContainer.addEventListener('click', cityHistoryClickable);
+savedInputDiv.addEventListener('click', cityHistoryClickable);
 const searchForm = document.querySelector('#citySearch');
 const citySearchInput = document.querySelector('#citySearchInput');
