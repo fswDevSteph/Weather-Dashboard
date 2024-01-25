@@ -73,7 +73,7 @@
  .day {
      background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
      color: white;
-     padding: 5px;
+
      margin-bottom: 10px;
      margin-top: 10px;
      display: flex;
@@ -87,6 +87,7 @@
      margin-bottom: 10px;
      display: flex;
      flex-wrap: wrap;
+     padding: 2.5em;
  }
 
 
