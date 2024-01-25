@@ -1,14 +1,13 @@
- :root {
+ /*:root {
      --nightScreen: radial-gradient(circle at 85.4% 50.8%, rgb(14, 72, 222) 0%, rgb(3, 22, 65) 74.2%);
      --sunnyScreen: radial-gradient(circle at 85.4% 50.8%, rgb(255, 255, 0) 0%, rgb(255, 255, 0) 74.2%);
      --dayScreen: linear-gradient(109.6deg, rgb(252, 255, 26) 34.9%, rgb(66, 240, 233) 82.5%);
      --girlyGradient: radial-gradient(circle at 24.1% 68.8%, #FF3CAC 0%, #562B7C 52%, #2B86C5 100%);
- }
+ } */
 
  body {
      font-family: poppins;
-     background: var(--girlyGradient);
-
+     background: blue;
  }
 
  header {
@@ -24,8 +23,9 @@
  }
 
 
-
-
+ label {
+     color: white;
+ }
 
  #citySearch {
      background-color: white;
@@ -81,9 +81,9 @@
      flex-direction: row;
      justify-content: space-between;
      overflow: hidden;
-     border-left: 1px solid rgb(243, 20, 205);
+     border-left: 1px solid white;
      margin-bottom: 10px;
-     border-left: 1px solid rgb(243, 20, 205);
+     border-left: 1px solid white;
      margin-bottom: 10px;
      display: flex;
      flex-wrap: wrap;
