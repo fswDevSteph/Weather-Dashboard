@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+const searchForm = document.querySelector('#citySearch');
+const citySearchInput = document.querySelector('#citySearchInput');
+
 async function latlongSearch() {
   const weatherApiKey = '1e57f9cafb1f7d251058b6d4dccdc7c2';
   userInputCity = document.getElementById('citySearchInput').value;
@@ -136,5 +139,5 @@ function cityHistoryClickable(e) {
 saveToLocalStorage();
 searchForm.addEventListener('submit', seachFormSubmit);
 savedInputDiv.addEventListener('click', cityHistoryClickable);
-const searchForm = document.querySelector('#citySearch');
-const citySearchInput = document.querySelector('#citySearchInput');
+//const searchForm = document.querySelector('#citySearch');
+//const citySearchInput = document.querySelector('#citySearchInput');
