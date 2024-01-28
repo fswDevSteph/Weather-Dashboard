@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-const searchForm = document.querySelector('#citySearch');
+const searchForm = document.querySelector('.citySearch');
 const citySearchInput = document.querySelector('#citySearchInput');
 
 async function latlongSearch() {
@@ -137,7 +137,7 @@ function cityHistoryClickable(e) {
   latlongSearch();
 }
 saveToLocalStorage();
-searchForm.addEventListener('submit', seachFormSubmit);
-savedInputDiv.addEventListener('click', cityHistoryClickable);
+//searchForm.addEventListener('submit', seachFormSubmit);
+//savedInputDiv.addEventListener('click', cityHistoryClickable);
 //const searchForm = document.querySelector('#citySearch');
 //const citySearchInput = document.querySelector('#citySearchInput');
