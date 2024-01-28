@@ -16,7 +16,7 @@ async function latlongSearch() {
 
   try {
     const response = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${userInputCity}&appid=${weatherApiKey}`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${userInputCity}&appid=${weatherApiKey}`
     );
     const data = await response.json();
     console.log(data);
@@ -24,7 +24,7 @@ async function latlongSearch() {
     const lat = data[0].lat;
     const lon = data[0].lon;
 
-    const forecastUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
     const forecastResponse = await fetch(forecastUrl);
     const forecastData = await forecastResponse.json();
     console.log(forecastData.list[0].main.temp);
