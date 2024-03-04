@@ -11,17 +11,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const searchForm = document.querySelector('.citySearch');
 const citySearchInput = document.querySelector('#citySearchInput');
+//! use async functions when writing API because you are waiting for info to come back
 
-async function latlongSearch() {
+async function latlongSearch() { //! asyc allows you to use await and await is like a pause
   const weatherApiKey = '1e57f9cafb1f7d251058b6d4dccdc7c2';
   userInputCity = document.getElementById('citySearchInput').value;
   console.log(userInputCity);
-
+//? try blocks say "were trying this code but if it doesnt work thats ok, without a tryblock, youll get an error"
   try {
-    const response = await fetch(
+    const response = await fetch( //! await is just like .then each await is like a then block
       `https://api.openweathermap.org/geo/1.0/direct?q=${userInputCity}&appid=${weatherApiKey}`
     );
-    const data = await response.json();
+    const data = await response.json(); //! once the data from the api call arrives we turn it into json datatype so we can work with it.
     console.log(data);
 
     const lat = data[0].lat;
@@ -81,6 +82,7 @@ async function latlongSearch() {
     });
 
     saveToLocalStorage(userInputCity);
+    //? Catch only runs IF theres an error - its like a safety net :) and its basically for the developer to tell them what the error is
   } catch (error) {
     console.error('Error fetching data:', error);
   }
