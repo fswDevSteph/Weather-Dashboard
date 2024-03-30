@@ -17,7 +17,7 @@ async function latlongSearch() { //! asyc allows you to use await and await is l
   const weatherApiKey = '1e57f9cafb1f7d251058b6d4dccdc7c2';
   userInputCity = document.getElementById('citySearchInput').value;
   console.log(userInputCity);
-//? try blocks say "were trying this code but if it doesnt work thats ok, without a tryblock, youll get an error"
+  //? try blocks say "were trying this code but if it doesnt work thats ok, without a tryblock, youll get an error"
   try {
     const response = await fetch( //! await is just like .then each await is like a then block
       `https://api.openweathermap.org/geo/1.0/direct?q=${userInputCity}&appid=${weatherApiKey}`
@@ -42,8 +42,8 @@ async function latlongSearch() { //! asyc allows you to use await and await is l
       <p>City: ${userInputCity}</p>
       <p>Date: ${forecastData.list[0].dt_txt}</p>
       <p>Temperature: ${(forecastData.list[0].main.temp - 273.15).toFixed(
-        2
-      )}°C </p> 
+      2
+    )}°C </p> 
       <p>Humidity: ${forecastData.list[0].main.humidity}%</p>
       <p>Wind: ${forecastData.list[0].wind.speed} m/s</p>
     `;
@@ -90,7 +90,9 @@ async function latlongSearch() { //! asyc allows you to use await and await is l
 
 function saveToLocalStorage(userInput) {
   let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
-  savedInputs.push(userInput);
+  if (!savedInputs.includes(userInput)) {
+    savedInputs.push(userInput);
+  }
   localStorage.setItem('savedInputs', JSON.stringify(savedInputs));
   displaySavedInputs();
 }
