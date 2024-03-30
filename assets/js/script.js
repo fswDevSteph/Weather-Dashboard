@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  displaySavedInputs();
+  // displaySavedInputs();
 
   document
     .getElementById('citySearchForm')
@@ -13,9 +13,11 @@ const searchForm = document.querySelector('.citySearch');
 const citySearchInput = document.querySelector('#citySearchInput');
 //! use async functions when writing API because you are waiting for info to come back
 
-async function latlongSearch() { //! asyc allows you to use await and await is like a pause
+async function latlongSearch(userInputCity) { //! asyc allows you to use await and await is like a pause
   const weatherApiKey = '1e57f9cafb1f7d251058b6d4dccdc7c2';
-  userInputCity = document.getElementById('citySearchInput').value;
+  if (!userInputCity) {
+    userInputCity = document.getElementById('citySearchInput').value;
+  }
   console.log(userInputCity);
   //? try blocks say "were trying this code but if it doesnt work thats ok, without a tryblock, youll get an error"
   try {
@@ -36,7 +38,6 @@ async function latlongSearch() { //! asyc allows you to use await and await is l
     console.log(forecastData.list[0]);
 
     const currentWeatherDiv = document.getElementById('currentWeather');
-    const currentDay = document.getElementById('currentDay');
 
     currentWeatherDiv.innerHTML = `
       <p>City: ${userInputCity}</p>
@@ -94,7 +95,7 @@ function saveToLocalStorage(userInput) {
     savedInputs.push(userInput);
   }
   localStorage.setItem('savedInputs', JSON.stringify(savedInputs));
-  displaySavedInputs();
+  // displaySavedInputs();
 }
 //function to display city searches history
 function displaySavedInputs() {
@@ -107,16 +108,18 @@ function displaySavedInputs() {
   if (savedInputs.length === 0) {
     savedInputDiv.innerHTML = ' No saved inputs.';
   } else {
-    savedInputs = savedInputs.filter(
-      (input) => input !== null && input !== undefined
-    );
+
 
     savedInputs.forEach((input, index) => {
-      if (index > 0) {
+      if (index > -1) {
         savedInputDiv.innerHTML += '<br>';
       }
+      let button = document.createElement('button');
+      savedInputDiv.appendChild(button);
+      button.textContent = input;
+      button.addEventListener('click', cityHistoryClickable)
       //savedInputDiv.innerHTML += `<p>${input}</p>`;
-      savedInputDiv.innerHTML += `<button>${input}</button>`;
+      // savedInputDiv.innerHTML += `<button onclick="cityHistoryClickable()">${input}</button>`;
     });
   }
 }
@@ -132,16 +135,8 @@ function seachFormSubmit(e) {
 }
 
 function cityHistoryClickable(e) {
-  //the e just represents an event
-  if (!e.target.matches(savedInput)) {
-    return;
-  }
-  const button = e.target;
-  const search = button.getAttribute(savedInput);
-  latlongSearch();
+  e = this.textContent
+  console.log(e)
+  latlongSearch(e);
 }
 saveToLocalStorage();
-//searchForm.addEventListener('submit', seachFormSubmit);
-//savedInputDiv.addEventListener('click', cityHistoryClickable);
-//const searchForm = document.querySelector('#citySearch');
-//const citySearchInput = document.querySelector('#citySearchInput');
