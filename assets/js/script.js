@@ -1,13 +1,12 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // displaySavedInputs();
+displaySavedInputs();
 
-  document
-    .getElementById('citySearchForm')
-    .addEventListener('submit', function (event) {
-      event.preventDefault();
-      latlongSearch();
-    });
-});
+document
+  .getElementById('citySearchForm')
+  .addEventListener('submit', function (event) {
+    event.preventDefault();
+    latlongSearch();
+  });
+
 
 const searchForm = document.querySelector('.citySearch');
 const citySearchInput = document.querySelector('#citySearchInput');
@@ -90,12 +89,14 @@ async function latlongSearch(userInputCity) { //! asyc allows you to use await a
 }
 
 function saveToLocalStorage(userInput) {
-  let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
-  if (!savedInputs.includes(userInput)) {
-    savedInputs.push(userInput);
+  if (userInput) {
+    let savedInputs = JSON.parse(localStorage.getItem('savedInputs')) || [];
+    if (!savedInputs.includes(userInput)) {
+      savedInputs.push(userInput);
+    }
+    localStorage.setItem('savedInputs', JSON.stringify(savedInputs));
+    displaySavedInputs();
   }
-  localStorage.setItem('savedInputs', JSON.stringify(savedInputs));
-  // displaySavedInputs();
 }
 //function to display city searches history
 function displaySavedInputs() {
@@ -105,24 +106,18 @@ function displaySavedInputs() {
 
   savedInputDiv.innerHTML = '';
 
-  if (savedInputs.length === 0) {
-    savedInputDiv.innerHTML = ' No saved inputs.';
-  } else {
-
-
-    savedInputs.forEach((input, index) => {
-      if (index > -1) {
-        savedInputDiv.innerHTML += '<br>';
-      }
-      let button = document.createElement('button');
-      savedInputDiv.appendChild(button);
-      button.textContent = input;
-      button.addEventListener('click', cityHistoryClickable)
-      //savedInputDiv.innerHTML += `<p>${input}</p>`;
-      // savedInputDiv.innerHTML += `<button onclick="cityHistoryClickable()">${input}</button>`;
-    });
-  }
+  savedInputs.forEach((input, index) => {
+    let button = document.createElement('button');
+    savedInputDiv.appendChild(button);
+    button.textContent = input;
+    button.addEventListener('click', cityHistoryClickable)
+    let br = document.createElement("br")
+    savedInputDiv.appendChild(br);
+    //savedInputDiv.innerHTML += `<p>${input}</p>`;
+    // savedInputDiv.innerHTML += `<button onclick="cityHistoryClickable()">${input}</button>`;
+  });
 }
+
 
 function seachFormSubmit(e) {
   if (!citySearchInput.value) {
@@ -139,4 +134,3 @@ function cityHistoryClickable(e) {
   console.log(e)
   latlongSearch(e);
 }
-saveToLocalStorage();
